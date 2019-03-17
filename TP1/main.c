@@ -11,34 +11,42 @@ int main(int argc, char *argv[])
 	//banco_de_prueba()
 	//Aca pueden ir las funciones de los bancos de pruebas que modifican
 	//argc y argv para "imitar" la entrada
-	
-	parseCmdLine_Return = parseCmdLine(argc, argv, parseCallback, UserData);	//Invoco al parse y almaceno su retorno
-	
-	if (parseCmdLine_Return == EMPTY_ARGS)										//Si hubo errores durante la ejecucion
-		printf("No ha ingresado ningun argumento en linea de comandos");		//de parseCmdLine se muestra en pantalla
-	else if (parseCmdLine_Return == OVERFLOW_ARGS)								//su origen
-		printf("La cantidad de argumentos excede el maximo de %d", MAX_ARGS);
-	else if (parseCmdLine_Return == SINTAX_ERROR)
-		printf("Su ingreso ha sido incorrecto \n(Formato: -clave valor // parametro)");
-	else 
-		printf("La cantidad de parametros ingresados fueron: %d", parseCmdLine_Return); //En el caso de una ejecucion
-																						//exitosa, muestra la cantidad
-																						//de argumentos
 
-	while (1); //solo sirve para que la consola de windowsno deparezca de pantalla cuando termina el programa *Borrar*
-	
+	parseCmdLine_Return = parseCmdLine(argc, argv, parseCallback, UserData);	//Invoco al parse y almaceno su retorno
+
+	switch (parseCmdLine_Return)																//Si hubo errores durante la ejecucion																						//de parseCmdLine se muestra en pantalla
+	{																							//su origen
+		case EMPTY_ARGS: printf("No ha ingresado ningun argumento en linea de comandos\n");
+						 break;
+
+		case OVERFLOW_ARGS: printf("La cantidad de argumentos excede el maximo de %d\n", MAX_ARGS);
+							break;
+
+		case SINTAX_ERROR: printf("Su ingreso ha sido incorrecto (Formato: -clave valor // parametro)\n");
+						   break;
+		default: printf("Parametros ingresados: %d\n", parseCmdLine_Return);						//En el caso de una ejecucion
+			     printf("Opciones ingresadas: %d\n", ((argc-1)-parseCmdLine_Return)/2);				//exitosa, muestra la cantidad
+																									//de argumentos
+	}
+
+
 	return 0;
 }
 
+
 int parseCallback(char *key, char *value, void *UserData)
 {
+	/*
+	printf("key: %s\n", key);
+	printf("value: %s\n", value);
+	*/
 	if (key == NULL)
 	{
 		//Guardar value en UserData, ya que lo que ingreso
 		//es un parámetro
 		return 1;	//Interpretacion correcta
 	}
-	if (key != NULL && value != NULL)
+	if (key != NULL && value != NULL && (*value) != '-')
 	{
 		//Guardar key (sin el guion) y value en UserData, ya que lo que ingreso
 		//es una clave con un valor
@@ -48,4 +56,5 @@ int parseCallback(char *key, char *value, void *UserData)
 	{
 		return 0; //si tengo una clave sin valor, devuelvo 0
 	}
+	return 0;
 }
