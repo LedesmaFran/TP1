@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClCompile Include="main.c" />
     <ClCompile Include="ParseCmdLine.c" />
+    <ClCompile Include="test.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ParseCmdLine.h" />

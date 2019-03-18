@@ -15,10 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.c">
+    <ClCompile Include="ParseCmdLine.c">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="ParseCmdLine.c">
+    <ClCompile Include="test.c">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
