@@ -5,7 +5,7 @@ int parseCmdLine (int argc, char *argv[], pCallback CallbackFunc, void *UserData
 	int index = 1;					//Contador de argumentos que comienza en 1 ya que el titulo del
 									//archivo no se toma en cuenta
 	int CountParam=0;
-
+	int CountOpc = 0;
 	if (argc == NO_ARGUMENTS)	//Filtros iniciales para desestimar los ingresos sin 
 		return EMPTY_ARGS;		//argumentos, o lo ingresos con demasiados
 	else if (argc > MAX_ARGS)	//argumentos definidos en MAX_ARGS (ParseCmdLine.h)
@@ -20,6 +20,7 @@ int parseCmdLine (int argc, char *argv[], pCallback CallbackFunc, void *UserData
 			{
 				return SINTAX_ERROR;							//con el key, el value y un puntero para almacenarlos
 			}
+			CountOpc++;
 			index++;
 		}														//En caso de devolver "0", termina la ejecucion
 		else
@@ -30,5 +31,5 @@ int parseCmdLine (int argc, char *argv[], pCallback CallbackFunc, void *UserData
 		}														//para almacenarlo. En caso de devolver "0", termina la ejecucion
 		index++;
 	}
-	return (CountParam);	//Si la ejecucion fue exitosa, devuelvo la cantidad de paramtros (Sin el nombre del archivo)
+	return (CountParam+CountOpc);	//Si la ejecucion fue exitosa, devuelvo la cantidad de paramtros (Sin el nombre del archivo)
 }

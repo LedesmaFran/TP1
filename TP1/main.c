@@ -24,8 +24,8 @@ int main(int argc, char *argv[])
 
 		case SINTAX_ERROR: printf("Su ingreso ha sido incorrecto (Formato: -clave valor // parametro)\n");
 						   break;
-		default: printf("Parametros ingresados: %d\n", parseCmdLine_Return);						//En el caso de una ejecucion
-			     printf("Opciones ingresadas: %d\n", ((argc-1)-parseCmdLine_Return)/2);				//exitosa, muestra la cantidad
+		default: printf("La suma de las Opciones y Parametros ingresados son: %d\n", parseCmdLine_Return);						//En el caso de una ejecucion
+																									//exitosa, muestra la cantidad
 																									//de argumentos
 	}
 
@@ -54,7 +54,17 @@ int parseCallback(char *key, char *value, void *UserData)
 	}
 	if (key != NULL && value == NULL)
 	{
+		if(*(key+1)==NULL)
+		{
+			printf("opcion sin clave\n");
+		}
+		else
+		{
+			printf("Opcion %s sin valor\n", key);
+		}
+			
 		return 0; //si tengo una clave sin valor, devuelvo 0
 	}
+	printf("Opcion %s sin valor\n", key);
 	return 0;
 }
