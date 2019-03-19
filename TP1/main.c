@@ -54,8 +54,9 @@ int parseCallback(char *key, char *value, void *UserData)
 	}
 	if (key != NULL && value == NULL)
 	{
-		if(*(key+1)==NULL)
+		if(NULL == (void*)*(key + 1))
 		{
+			printf("%c\n", *(key + 1));
 			printf("opcion sin clave\n");
 		}
 		else

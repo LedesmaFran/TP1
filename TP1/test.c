@@ -2,15 +2,31 @@
 #include "ParseCmdLine.h"
 
 int parseCallback(char *, char *, void *);	 //Declaracion de la funcion de callback
+int main2(int argc, char *argv[]);
 
 int main (void)
 {
-	main2(4, { "TP1.exe","-opc1","valor1","param1" });			//deberia devolver 2
-	main2(5, { "TP1.exe","-opc1","valor1","param1","-opc2" });	//ERROR -opc2 sin valor
-	main2(4, { "TP1.exe","-opc1","valor" ,"-" });				//ERROR - sin clave
-	main2(4, { "TP1.exe","-opc1","-opc2","valor2" });			//ERROR -opc1 sin valor
-	main2(1, { "TP1.exe" });									//No ha ingresado ningun argumento en linea de comandos
+	char *array[4] = { "TP1.exe","-opc1","valor1","param1" };
+	printf("---------Prueba 1---------\nArgumentos de entrada = TP1.exe -opc1 valor1 param1\n");
+	main2(4, array);			//deberia devolver 2
 
+	char *array2[6] = { "TP1.exe","-opc1","valor1","param1","-opc2", NULL };
+	printf("\n---------Prueba 2---------\nArgumentos de entrada = TP1.exe -opc1 valor1 param1 -opc2\n");
+	main2(5, array2);			//ERROR -opc2 sin valor
+
+	char *array3[5] = { "TP1.exe","-opc1","valor","-" };
+	printf("\n---------Prueba 3---------\nArgumentos de entrada = TP1.exe -opc1 valor -\n");
+	main2(4, array3);			//ERROR - sin clave
+
+	char *array4[5] = { "TP1.exe","-opc1","-opc2","valor2" };
+	printf("\n---------Prueba 4---------\nArgumentos de entrada = TP1.exe -opc1 -opc2 valor2\n");
+	main2(4, array4);			//ERROR -opc1 sin valor
+
+	char *array5[5] = { "TP1.exe" };
+	printf("\n---------Prueba 5---------\nArgumentos de entrada = TP1.exe\n");
+	main2(1, array5);			//ERROR No ha ingresado ningun argumento en linea de comandos
+
+	
 
 }
 
@@ -66,7 +82,7 @@ int parseCallback(char *key, char *value, void *UserData)
 	}
 	if (key != NULL && value == NULL)
 	{
-		if (*(key + 1) == NULL)
+		if ((void*)*(key + 1) == NULL)
 		{
 			printf("opcion sin clave\n");
 		}
